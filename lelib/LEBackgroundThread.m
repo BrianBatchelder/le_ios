@@ -258,6 +258,26 @@
         return;
     }
     
+    // only upload when on wifi
+    if (self.networkStatus == nil) {
+        self.networkStatus = [LeNetworkStatus new];
+        self.networkStatus.delegate = self;
+    }
+    if (self.networkStatus) {
+        if (![self.networkStatus reachabilityForLocalWiFi]) {
+            LE_DEBUG(@"Not on wifi");
+            // close output stream if open - will be re-opened when wifi returns
+            if (self.outputSocketStream) {
+                [self.outputSocketStream close];
+                self.outputSocketStream = nil;
+            }
+            return;
+        } else {
+            self.networkStatus = nil;
+            self.networkStatus.delegate = nil;
+        }
+    }
+    
     if (!self.outputSocketStream) {
         [self initNetworkCommunication];
     }
