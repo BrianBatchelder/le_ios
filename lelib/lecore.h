@@ -17,12 +17,17 @@
 #define MAXIMUM_FILE_COUNT              3
 #define MAXIMUM_LOGFILE_SIZE            (1024 * 1024)
 
+extern void LE_DEBUG(NSString *format, ...);
+
 /* Pure C API */
 
 int le_init(void);
+void le_handle_crashes(void);
 void le_poke(void);
 void le_log(const char* message);
 void le_write_string(NSString* string);
 void le_set_token(const char* token);
+bool is_valid_token(const char* token,size_t *token_length);
+void le_set_debug_logs(bool verbose);
 
 #endif

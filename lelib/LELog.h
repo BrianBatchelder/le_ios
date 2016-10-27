@@ -22,6 +22,12 @@
 
 + (LELog*)sharedInstance;
 
++ (LELog*)sessionWithToken:(NSString*)token;
+/*
+ Display all messages on TTY for debug purposes
+ */
+@property (nonatomic) BOOL debugLogs;
+
 /*
  Appends space separated token to each log message.
  */
@@ -33,6 +39,8 @@
  description method.
  */
 - (void)log:(NSObject*)object;
+
++ (void)log:(NSObject*)object;
 
 /*
  Log UIApplicationDidFinishLaunchingNotification, UIApplicationDidBecomeActiveNotification,
